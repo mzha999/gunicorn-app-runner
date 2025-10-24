@@ -6,7 +6,7 @@ build:
       - python3 -m pip install -r requirements.txt
 run:
   runtime-version: 3.11
-  command: /opt/venv/bin/gunicorn --bind 0.0.0.0:8080 --workers 2 app:app
+  command: python3 -m gunicorn --bind 0.0.0.0:8080 --workers 2 app:app
   network:
     port: 8080
     env: PORT
