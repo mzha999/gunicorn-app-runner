@@ -3,17 +3,19 @@ runtime: python311
 build:
   commands:
     build:
-      - python3 -m venv venv
-      - source venv/bin/activate && pip install -r requirements.txt
+      - python3 -m pip install --upgrade pip
+      - python3 -m pip install --target /app/packages -r requirements.txt
 run:
   runtime-version: 3.11
-  command: source venv/bin/activate && gunicorn --bind 0.0.0.0:8080 --workers 2 app:app
+  command: python3 -m gunicorn --bind 0.0.0.0:8080 --workers 2 app:app
   network:
     port: 8080
     env: PORT
   env:
     - name: PORT
       value: "8080"
+    - name: PYTHONPATH
+      value: "/app/packages"
     - name: DB_HOST
       value: "gunicorn-app-postgres.c3ksoes2a8xg.us-east-1.rds.amazonaws.com"
     - name: DB_NAME
