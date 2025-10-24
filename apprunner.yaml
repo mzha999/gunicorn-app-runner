@@ -1,9 +1,10 @@
 version: 1.0
-runtime: python3
+runtime: python311
 build:
   commands:
     build:
-      - pip install -r requirements.txt
+      - python3 -m pip install --upgrade pip
+      - python3 -m pip install --target /app/packages -r requirements.txt
 run:
   runtime-version: 3.11
   command: gunicorn --bind 0.0.0.0:8080 --workers 2 app:app
